@@ -18,7 +18,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const register = (username, email, password, phone) => {
-    const newUser = { username, email, password, phone };
+    const newUser = { username, email, password, phone, cart: [] };
     axios.post('http://localhost:5000/users', newUser)
       .then((response) => {
         setUser(response.data);
@@ -31,8 +31,9 @@ const AuthProvider = ({ children }) => {
     axios.get(`http://localhost:5000/users?email=${email}&password=${password}`)
       .then((response) => {
         if (response.data.length > 0) {
-          setUser(response.data[0]);
-          localStorage.setItem('user', JSON.stringify(response.data[0]));
+          const loggedInUser = { ...response.data[0], cart: response.data[0].cart || [] };
+          setUser(loggedInUser);
+          localStorage.setItem('user', JSON.stringify(loggedInUser));
           navigate('/products');
         } else {
           alert('Invalid email or password');

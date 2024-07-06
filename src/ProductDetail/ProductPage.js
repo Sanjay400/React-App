@@ -1,3 +1,5 @@
+// src/ProductPage/ProductDetails.js
+
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import './ProductPage.css';

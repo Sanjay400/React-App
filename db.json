@@ -68,6 +68,36 @@
           "quantity": 1
         }
       ]
+    },
+    {
+      "id": "b372",
+      "username": "Sanjeev",
+      "email": "sanjeev@gmail.com",
+      "password": "Sanjeev@2002",
+      "phone": "8906568976",
+      "cart": [
+        {
+          "id": "3",
+          "name": "Sporty Blue Watch",
+          "rating": 4.2,
+          "brand": "Brand C",
+          "color": "Blue",
+          "gender": "Female",
+          "price": 99.99,
+          "offers": "5% off",
+          "description": "Sporty watch with a comfortable silicone band.",
+          "image": "image3.jpg",
+          "quantity": 3
+        }
+      ]
+    },
+    {
+      "id": "db20",
+      "username": "Arul",
+      "email": "arul@gmail.com",
+      "password": "Arul@2002",
+      "phone": "9807545678",
+      "cart": []
     }
   ],
   "products": [
