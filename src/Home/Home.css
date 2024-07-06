@@ -1,0 +1,107 @@
+/* Home.css */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+  }
+  
+  .home-container {
+    text-align: center;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: #3cea15;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    
+  }
+  
+  .title-image {
+    height: 50px;
+    width: 200px;
+    margin-left:100px;
+  }
+  
+  .date {
+    font-size: 18px;
+    color: #ffffff;
+  }
+  
+  .header-buttons a {
+    margin-left: 15px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .header-buttons a:hover {
+    text-decoration: underline;
+    color:red;
+  }
+  
+  .slider {
+    position: relative;
+    width: 120%; /* Reduced width */
+    width: 1235px; /* Reduced max-width */
+    margin: 3px auto;
+    overflow: hidden;
+  }
+  
+  .slide {
+    display: none;
+    width: 100%;
+    transition: opacity 1s;
+  }
+  
+  .slide.active {
+    display: block;
+  }
+  
+  .slide img {
+    width: 100%;
+    height: 430px; /* Reduced height */
+    object-fit: cover;
+    cursor: pointer;
+  }
+  
+  /* Ensure full width on larger screens */
+  @media (min-width: 1024px) {
+    .home-container {
+      max-width: 1175px; /* Reduced max-width */
+      margin: 0 auto;
+      margin-right: 10px;
+      margin-left: 20px;
+    }
+  }
+
+/* Styles for the info box */
+.info-box {
+    display: flex;
+    flex-direction: row; /* Change to row for horizontal layout */
+    justify-content: center; /* Center items horizontally */
+    align-items: center;
+    margin: 20px auto;
+    width: 75%;
+    max-width: 700px; /* Ensure consistency with slider */
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+}
+
+.info-item {
+    background-color: #3cea15;
+    color: #fff;
+    padding: 10px;
+    margin: 10px; /* Margin to separate items */
+    width: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 4px;
+    flex: 1; /* Allow items to grow and shrink */
+    min-width: 200px; /* Ensure a minimum width */
+}
+
+
