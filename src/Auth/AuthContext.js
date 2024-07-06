@@ -18,7 +18,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const register = (username, email, password, phone) => {
-    const newUser = { username, email, password, phone, cart: [] };
+    const newUser = { username, email, password, phone, cart: [], orders: [] };
     axios.post('http://localhost:5000/users', newUser)
       .then((response) => {
         setUser(response.data);
@@ -31,9 +31,8 @@ const AuthProvider = ({ children }) => {
     axios.get(`http://localhost:5000/users?email=${email}&password=${password}`)
       .then((response) => {
         if (response.data.length > 0) {
-          const loggedInUser = { ...response.data[0], cart: response.data[0].cart || [] };
-          setUser(loggedInUser);
-          localStorage.setItem('user', JSON.stringify(loggedInUser));
+          setUser(response.data[0]);
+          localStorage.setItem('user', JSON.stringify(response.data[0]));
           navigate('/products');
         } else {
           alert('Invalid email or password');
@@ -48,27 +47,54 @@ const AuthProvider = ({ children }) => {
   };
 
   const addToCart = (product) => {
-    if (!user) {
-      alert('You need to log in to add products to the cart.');
-      navigate('/login');
-      return;
+    if (user) {
+      const updatedUser = { ...user, cart: [...user.cart, product] };
+      setUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      axios.put(`http://localhost:5000/users/${user.id}`, updatedUser);
     }
+  };
 
-    const updatedCart = [...user.cart, { ...product, quantity: 1 }];
-    const updatedUser = { ...user, cart: updatedCart };
+  const removeFromCart = (productId) => {
+    if (user) {
+      const updatedCart = user.cart.filter(product => product.id !== productId);
+      const updatedUser = { ...user, cart: updatedCart };
+      setUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      axios.put(`http://localhost:5000/users/${user.id}`, updatedUser);
+    }
+  };
 
-    axios.patch(`http://localhost:5000/users/${user.id}`, { cart: updatedCart })
-      .then(() => {
-        setUser(updatedUser);
-        localStorage.setItem('user', JSON.stringify(updatedUser));
-      })
-      .catch(error => {
-        console.error('Error adding to cart:', error);
-      });
+  const placeOrder = (shippingDetails) => {
+    if (user) {
+      const orderDate = new Date();
+      const deliveryDate = new Date();
+      deliveryDate.setDate(orderDate.getDate() + 5);
+      const newOrder = {
+        cart: user.cart,
+        shippingDetails,
+        orderDate,
+        deliveryDate,
+      };
+      const updatedUser = { ...user, orders: [...user.orders, newOrder], cart: [] };
+      setUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      axios.put(`http://localhost:5000/users/${user.id}`, updatedUser);
+    }
+  };
+
+  const cancelOrder = (orderIndex) => {
+    if (user) {
+      const updatedOrders = user.orders.filter((_, index) => index !== orderIndex);
+      const updatedUser = { ...user, orders: updatedOrders };
+      setUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      axios.put(`http://localhost:5000/users/${user.id}`, updatedUser);
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, register, login, logout, addToCart }}>
+    <AuthContext.Provider value={{ user, register, login, logout, addToCart, removeFromCart, placeOrder, cancelOrder }}>
       {children}
     </AuthContext.Provider>
   );

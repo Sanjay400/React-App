@@ -1,9 +1,7 @@
-// src/Register/Register.js
-
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios'; // Import axios here
 import { AuthContext } from '../Auth/AuthContext';
+import axios from 'axios';
 import './Register.css';
 
 const Register = () => {

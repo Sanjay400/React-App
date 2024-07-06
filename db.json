@@ -33,7 +33,8 @@
           "image": "image4.jpeg",
           "quantity": 1
         }
-      ]
+      ],
+      "orders": []
     },
     {
       "id": "4951",
@@ -41,31 +42,56 @@
       "email": "ram@gmail.com",
       "password": "Ram@2002",
       "phone": "8790654356",
-      "cart": [
+      "cart": [],
+      "orders": [
         {
-          "id": "7",
-          "name": "Vintage Brown Watch",
-          "rating": 4.6,
-          "brand": "Brand G",
-          "color": "Brown",
-          "gender": "Male",
-          "price": 199.99,
-          "offers": "30% off",
-          "description": "Vintage watch with a classic leather band.",
-          "image": "image7.jpg"
-        },
-        {
-          "id": "3",
-          "name": "Sporty Blue Watch",
-          "rating": 4.2,
-          "brand": "Brand C",
-          "color": "Blue",
-          "gender": "Female",
-          "price": 99.99,
-          "offers": "5% off",
-          "description": "Sporty watch with a comfortable silicone band.",
-          "image": "image3.jpg",
-          "quantity": 1
+          "cart": [
+            {
+              "id": "7",
+              "name": "Vintage Brown Watch",
+              "rating": 4.6,
+              "brand": "Brand G",
+              "color": "Brown",
+              "gender": "Male",
+              "price": 199.99,
+              "offers": "30% off",
+              "description": "Vintage watch with a classic leather band.",
+              "image": "image7.jpg"
+            },
+            {
+              "id": "3",
+              "name": "Sporty Blue Watch",
+              "rating": 4.2,
+              "brand": "Brand C",
+              "color": "Blue",
+              "gender": "Female",
+              "price": 99.99,
+              "offers": "5% off",
+              "description": "Sporty watch with a comfortable silicone band.",
+              "image": "image3.jpg",
+              "quantity": 1
+            },
+            {
+              "id": "2",
+              "name": "Luxury Gold Watch",
+              "rating": 4.8,
+              "brand": "Brand B",
+              "color": "Gold",
+              "gender": "Male",
+              "price": 299.99,
+              "offers": "15% off",
+              "description": "Luxurious gold watch with a leather strap.",
+              "image": "image2.jpg"
+            }
+          ],
+          "shippingDetails": {
+            "address": "7/89,Ramanathapuram",
+            "phone": "9876906545",
+            "email": "ram@gmail.com",
+            "payment": "cod"
+          },
+          "orderDate": "2024-07-06T12:08:18.247Z",
+          "deliveryDate": "2024-07-11T12:08:18.247Z"
         }
       ]
     },
@@ -97,7 +123,8 @@
       "email": "arul@gmail.com",
       "password": "Arul@2002",
       "phone": "9807545678",
-      "cart": []
+      "cart": [],
+      "orders": []
     }
   ],
   "products": [
