@@ -1,6 +1,6 @@
 // src/Cart/Cart.js
 
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../Auth/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import './Cart.css';
@@ -9,6 +9,8 @@ import axios from 'axios';
 const Cart = () => {
   const { user, setUser, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleRemoveFromCart = (productId) => {
     const updatedCart = user.cart.filter(product => product.id !== productId);
@@ -36,22 +38,31 @@ const Cart = () => {
   };
 
   const updateCart = (updatedCart) => {
+    setLoading(true);
     const updatedUser = { ...user, cart: updatedCart };
 
     axios.patch(`http://localhost:5000/users/${user.id}`, { cart: updatedCart })
       .then(() => {
         setUser(updatedUser);
         localStorage.setItem('user', JSON.stringify(updatedUser));
+        setError('');
       })
       .catch(error => {
         console.error('Error updating cart:', error);
+        setError('Failed to update cart. Please try again.');
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
   const handleProceedToBuy = () => {
-    // Handle proceed to buy logic here
     navigate('/shipping');
   };
+
+  if (!user || !user.cart) {
+    return <div>Loading...</div>;
+  }
 
   const total = user.cart.reduce((acc, product) => acc + (product.price * (product.quantity || 1)), 0);
 
@@ -64,30 +75,37 @@ const Cart = () => {
         </div>
       </header>
       <h1>Cart</h1>
-      {user.cart.length === 0 ? (
-        <div>Your cart is empty</div>
+      {error && <div className="error-message">{error}</div>}
+      {loading ? (
+        <div>Updating cart...</div>
       ) : (
-        <div className="cart-items">
-          {user.cart.map(product => (
-            <div key={product.id} className="cart-item">
-              <img src={process.env.PUBLIC_URL + `/Image/${product.image}`} alt={product.name} className="cart-item-image" />
-              <div className="cart-item-info">
-                <h2>{product.name}</h2>
-                <p>${product.price}</p>
-                <div className="quantity-controls">
-                  <button onClick={() => handleDecrementQuantity(product.id)}>-</button>
-                  <span>{product.quantity || 1}</span>
-                  <button onClick={() => handleIncrementQuantity(product.id)}>+</button>
+        <>
+          {user.cart.length === 0 ? (
+            <div>Your cart is empty</div>
+          ) : (
+            <div className="cart-items">
+              {user.cart.map(product => (
+                <div key={product.id} className="cart-item">
+                  <img src={process.env.PUBLIC_URL + `/Image/${product.image}`} alt={product.name} className="cart-item-image" />
+                  <div className="cart-item-info">
+                    <h2>{product.name}</h2>
+                    <p>${product.price}</p>
+                    <div className="quantity-controls">
+                      <button onClick={() => handleDecrementQuantity(product.id)}>-</button>
+                      <span>{product.quantity || 1}</span>
+                      <button onClick={() => handleIncrementQuantity(product.id)}>+</button>
+                    </div>
+                    <button onClick={() => handleRemoveFromCart(product.id)}>Remove</button>
+                  </div>
                 </div>
-                <button onClick={() => handleRemoveFromCart(product.id)}>Remove</button>
+              ))}
+              <div className="cart-total">
+                <h2>Total: ${total.toFixed(2)}</h2>
               </div>
+              <button onClick={handleProceedToBuy}>Proceed to Buy</button>
             </div>
-          ))}
-          <div className="cart-total">
-            <h2>Total: ${total.toFixed(2)}</h2>
-          </div>
-          <button onClick={handleProceedToBuy}>Proceed to Buy</button>
-        </div>
+          )}
+        </>
       )}
     </div>
   );

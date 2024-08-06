@@ -6,34 +6,7 @@
       "email": "sanjudddd400@gmail.com",
       "password": "Sanjay@2002",
       "phone": "9809675478",
-      "cart": [
-        {
-          "id": "1",
-          "name": "Classic Silver Watch",
-          "rating": 4.5,
-          "brand": "Brand A",
-          "color": "Silver",
-          "gender": "Unisex",
-          "price": 149.99,
-          "offers": "10% off",
-          "description": "Elegant silver watch with a stainless steel band.",
-          "image": "image1.jpg",
-          "quantity": 1
-        },
-        {
-          "id": "4",
-          "name": "Classic Black Watch",
-          "rating": 4.7,
-          "brand": "Brand D",
-          "color": "Black",
-          "gender": "Male",
-          "price": 129.99,
-          "offers": "20% off",
-          "description": "Classic black watch with a minimalist design.",
-          "image": "image4.jpeg",
-          "quantity": 1
-        }
-      ],
+      "cart": [],
       "orders": []
     },
     {
@@ -42,7 +15,20 @@
       "email": "ram@gmail.com",
       "password": "Ram@2002",
       "phone": "8790654356",
-      "cart": [],
+      "cart": [
+        {
+          "id": "8",
+          "name": "Chic White Watch",
+          "rating": 4.4,
+          "brand": "Brand H",
+          "color": "White",
+          "gender": "Female",
+          "price": 109.99,
+          "offers": "15% off",
+          "description": "Chic white watch with a ceramic band.",
+          "image": "image8.jpg"
+        }
+      ],
       "orders": [
         {
           "cart": [
